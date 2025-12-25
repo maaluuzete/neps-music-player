@@ -5,6 +5,12 @@ import tkinter as tk
 from ttkbootstrap.constants import *
 from tkinter import messagebox
 
+corfundo= "#EAF2F8"
+cordestaque= "#A7C7E7"
+cortexto= "#34495E"
+fontetitulo= ("Segoe UI Semilight", 16)
+fontetexto= ("Segoe UI", 11)
+
 def carregarbiblioteca(caminho):
     biblioteca = {}
     try:
@@ -40,36 +46,73 @@ class NepsMusicPlayer:
         self.criarinterface()
 
     def criarinterface(self):
-        frame = tb.Frame(self.root, padding=10)
+        frame = tb.Frame(self.root, padding=15)
         frame.pack(fill=BOTH, expand=True)
 
         self.labelstatus = tb.Label(
-            frame, text="Nenhuma música tocando", font=("Arial", 14)
+            frame,
+            text="Nenhuma música tocando",
+            font=fontetitulo,
+            foreground=cortexto
         )
         self.labelstatus.pack(pady=10)
-
         controles = tb.Frame(frame)
-        controles.pack(pady=10)
+        controles.pack(pady=15)
+        tb.Button(
+            controles,
+            text="⏯",
+            bootstyle="info-outline",
+            width=8,
+            command=self.tocarpausar
+        ).pack(side=LEFT, padx=6)
+        tb.Button(
+            controles,
+            text="⏭",
+            bootstyle="info-outline",
+            width=8,
+            command=self.proxima
+        ).pack(side=LEFT, padx=6)
 
-        tb.Button(controles, text="⏯ Tocar / Pausar", command=self.tocarpausar)\
-            .pack(side=LEFT, padx=5)
-
-        tb.Button(controles, text="⏭ Próxima", command=self.proxima)\
-            .pack(side=LEFT, padx=5)
-
-        tb.Button(controles, text="⏮ Voltar", command=self.voltar)\
-            .pack(side=LEFT, padx=5)
+        tb.Button(
+            controles,
+            text="⏮",
+            bootstyle="info-outline",
+            width=8,
+            command=self.voltar
+        ).pack(side=LEFT, padx=6)
 
         listas = tb.Frame(frame)
-        listas.pack(fill=BOTH, expand=True)
+        listas.pack(fill=BOTH, expand=True, pady=10)
 
-        self.listabiblioteca = tk.Listbox(listas)
-        self.listabiblioteca.pack(side=LEFT, fill=BOTH, expand=True, padx=5)
+        self.listabiblioteca = tk.Listbox(
+            listas,
+            font=fontetexto,
+            bg="#F7FBFF",
+            fg=cortexto,
+            selectbackground=cordestaque,
+            relief=FLAT
+        )
+        self.listabiblioteca.pack(side=LEFT, fill=BOTH, expand=True, padx=6)
         self.listabiblioteca.bind("<Double-Button-1>", self.adicionarfila)
-        self.listafila = tk.Listbox(listas)
-        self.listafila.pack(side=LEFT, fill=BOTH, expand=True, padx=5)
-        self.listahistorico = tk.Listbox(listas)
-        self.listahistorico.pack(side=LEFT, fill=BOTH, expand=True, padx=5)
+        self.listafila = tk.Listbox(
+            listas,
+            font=fontetexto,
+            bg="#F7FBFF",
+            fg=cortexto,
+            selectbackground=cordestaque,
+            relief=FLAT
+        )
+        self.listafila.pack(side=LEFT, fill=BOTH, expand=True, padx=6)
+
+        self.listahistorico = tk.Listbox(
+            listas,
+            font=fontetexto,
+            bg="#F7FBFF",
+            fg=cortexto,
+            selectbackground=cordestaque,
+            relief=FLAT
+        )
+        self.listahistorico.pack(side=LEFT, fill=BOTH, expand=True, padx=6)
         for musica in self.musicas:
             self.listabiblioteca.insert(END, musica)
 
