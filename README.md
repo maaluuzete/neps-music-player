@@ -45,7 +45,7 @@ Below is a preview of the application's interface:
 Follow the steps below to run the project locally.
 
 ```bash
-git clone https://github.com/your-username/neps-music-player.git
+git clone https://github.com/maaluuzete/neps-music-player.git
 cd neps-music-player
 python -m venv venv
 pip install -r requirements.txt
